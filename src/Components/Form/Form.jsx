@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import * as phonebookActions from 'redux/phonebook/phonebook-actions';
 import PropTypes from 'prop-types';
 import CustomForm from './Form.styled';
 
@@ -62,4 +64,8 @@ Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default Form;
+const mapDispatchToProps = dispatch => ({
+  onSubmit: data => dispatch(phonebookActions.addContact(data)),
+});
+
+export default connect(null, mapDispatchToProps)(Form);

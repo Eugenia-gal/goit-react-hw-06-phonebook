@@ -1,6 +1,8 @@
 import React from 'react';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as phonebookActions from 'redux/phonebook/phonebook-actions';
 import FilterContainer from './Filter.styled';
 
 const customId = shortid.generate();
@@ -26,4 +28,12 @@ Filter.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default Filter;
+const mapStateToProps = state => ({
+  value: state.contacts.filter,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onChange: event => dispatch(phonebookActions.filterContacts(event)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
