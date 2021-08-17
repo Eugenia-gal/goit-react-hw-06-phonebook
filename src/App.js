@@ -1,5 +1,4 @@
 // import { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import './App.css';
 import Container from 'Components/Container';
 import Form from 'Components/Form';
@@ -18,28 +17,16 @@ import Filter from 'Components/Filter';
 //   return [state, setState];
 // };
 
-function App({ contacts, currentFilter }) {
-  const visibleContacts = () => {
-    const normalizedFilter = currentFilter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter),
-    );
-  };
-
+function App() {
   return (
     <Container>
       <h1>Phonebook</h1>
       <Form />
       <h2>Contacts</h2>
       <Filter />
-      <ContactList contacts={visibleContacts()} />
+      <ContactList />
     </Container>
   );
 }
 
-const mapStateToProps = state => ({
-  contacts: state.contacts.items,
-  currentFilter: state.contacts.filter,
-});
-
-export default connect(mapStateToProps, null)(App);
+export default App;
