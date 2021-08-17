@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
 import * as actionTypes from 'redux/phonebook/phonebook-types';
-import initialContacts from 'Data/contacts.json';
+// import initialContacts from 'Data/contacts.json';
 
-const itemsReducer = (state = initialContacts, { type, payload }) => {
+const itemsReducer = (
+  state = JSON.parse(window.localStorage.getItem('contacts')) ?? [],
+  { type, payload },
+) => {
   switch (type) {
     case actionTypes.ADD_CONTACT: {
       const contactNames = state.map(contact => contact.name);
@@ -12,10 +15,17 @@ const itemsReducer = (state = initialContacts, { type, payload }) => {
         alert(`${payload.name} is already in Contacts`);
         return state;
       }
+
+      window.localStorage.setItem(
+        'contacts',
+        JSON.stringify([payload, ...state]),
+      );
       return [payload, ...state];
     }
     case actionTypes.DELETE_CONTACT: {
-      return state.filter(contact => contact.id !== payload);
+      const newState = state.filter(contact => contact.id !== payload);
+      window.localStorage.setItem('contacts', JSON.stringify([...newState]));
+      return newState;
     }
     default:
       return state;
