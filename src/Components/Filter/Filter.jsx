@@ -33,7 +33,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChange: event => dispatch(phonebookActions.filterContacts(event)),
+  onChange: event =>
+    dispatch(phonebookActions.filterContacts(event.target.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

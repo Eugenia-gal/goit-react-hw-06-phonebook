@@ -11,7 +11,7 @@ export const deleteContact = id => ({
   payload: id,
 });
 
-export const filterContacts = event => ({
+export const filterContacts = text => ({
   type: actionTypes.FILTER_CONTACT,
-  payload: event.target.value,
+  payload: text,
 });
