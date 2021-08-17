@@ -41,8 +41,19 @@ ContactList.propTypes = {
   onDeleteContact: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => {
+  const { items, filter } = state.contacts;
+  const normalizedFilter = filter.toLowerCase();
+  const visibleContacts = items.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter),
+  );
+  return {
+    contacts: visibleContacts,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
   onDeleteContact: id => dispatch(phonebookActions.deleteContact(id)),
 });
 
-export default connect(null, mapDispatchToProps)(ContactList);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
